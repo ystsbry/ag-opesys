@@ -1,0 +1,26 @@
+services:
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8787:8787"
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+      - do_storage:/app/backend/.wrangler   # DOストレージの永続化
+    command: wrangler dev --ip 0.0.0.0 --port 8787 --local
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    command: npx vite --host 0.0.0.0 --port 3000
+
+volumes:
+  do_storage:

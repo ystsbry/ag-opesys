@@ -1,0 +1,15 @@
+name = "my-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[dev]
+ip = "0.0.0.0"
+port = 8787
+
+[[durable_objects.bindings]]
+name = "MY_DO"
+class_name = "MyDurableObject"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["MyDurableObject"]
