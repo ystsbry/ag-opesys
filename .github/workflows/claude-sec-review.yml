@@ -1,0 +1,38 @@
+name: Claude Security Review
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  issue_comment:
+    types: [created]
+
+jobs:
+  sec-review:
+    if: |
+      (github.event_name == 'pull_request') ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude sec-review'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Security Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          trigger_phrase: "@claude sec-review"
+          direct_prompt: |
+            あなたはセキュリティレビュアーです。以下の観点で脆弱性チェックを行ってください：
+            - OWASP Top 10（インジェクション、XSS、CSRF等）
+            - 認証・認可の不備
+            - 機密情報の漏洩（ハードコードされたシークレット、ログ出力等）
+            - 入力バリデーションの不足
+            - 依存パッケージの既知の脆弱性
+            レビューコメントは日本語で記述してください。
+            問題が見つからなかった場合も、確認した項目を報告してください。

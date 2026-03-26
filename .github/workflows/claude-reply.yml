@@ -1,0 +1,29 @@
+name: Claude Reply
+
+on:
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  reply:
+    if: contains(github.event.comment.body, '@claude reply')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Reply
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          trigger_phrase: "@claude reply"
+          direct_prompt: |
+            あなたはPRのレビューコメントに対して返信するアシスタントです。
+            ユーザーが修正したことを伝えている場合は、該当箇所の現在のコードを確認し、
+            修正内容が適切かどうかを判断して返信だけしてください。
+            返信は日本語で、簡潔に記述してください。
