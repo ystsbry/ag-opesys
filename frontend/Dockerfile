@@ -1,10 +1,15 @@
 FROM node:20-slim
 
+ARG UID=1000
+ARG GID=1000
+
+RUN groupmod -g ${GID} node && usermod -u ${UID} -g ${GID} node
+
 WORKDIR /app/frontend
 
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install && chown -R node:node /app
 
-COPY frontend/ .
+USER node
 
 EXPOSE 3000

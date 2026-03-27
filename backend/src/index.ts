@@ -1,16 +1,28 @@
 import { DurableObject } from "cloudflare:workers";
+import { Hono } from "hono";
+import { createYoga } from "graphql-yoga";
+import { schema } from "./schema";
 
 export class MyDurableObject extends DurableObject {
   async fetch(request: Request): Promise<Response> {
-    // DO のロジック
     return new Response("Hello from Durable Object");
   }
 }
 
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const id = env.MY_DO.idFromName("default");
-    const stub = env.MY_DO.get(id);
-    return stub.fetch(request);
-  },
+type Bindings = {
+  MY_DO: DurableObjectNamespace;
 };
+
+const app = new Hono<{ Bindings: Bindings }>();
+
+const yoga = createYoga({ schema });
+
+app.on(["GET", "POST"], "/graphql", async (c) => {
+  return yoga.handle(c.req.raw, c.env);
+});
+
+app.get("/health", (c) => {
+  return c.json({ status: "ok" });
+});
+
+export default app;

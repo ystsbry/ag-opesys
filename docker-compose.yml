@@ -3,24 +3,34 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
     ports:
       - "8787:8787"
     volumes:
       - ./backend:/app/backend
-      - /app/backend/node_modules
-      - do_storage:/app/backend/.wrangler   # DOストレージの永続化
-    command: wrangler dev --ip 0.0.0.0 --port 8787 --local
+      - backend_node_modules:/app/backend/node_modules
+      - do_storage:/app/backend/.wrangler
+    command: npx wrangler dev --ip 0.0.0.0 --port 8787 --local
 
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app/frontend
-      - /app/frontend/node_modules
+      - frontend_node_modules:/app/frontend/node_modules
     command: npx vite --host 0.0.0.0 --port 3000
 
 volumes:
   do_storage:
+  backend_node_modules:
+  frontend_node_modules:
