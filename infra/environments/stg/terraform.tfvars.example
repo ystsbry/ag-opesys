@@ -1,0 +1,15 @@
+# Cloudflare
+cloudflare_api_token  = ""
+cloudflare_account_id = ""
+cloudflare_zone_id    = ""
+
+# Auth0
+auth0_domain         = "example.us.auth0.com"
+auth0_client_id      = ""
+auth0_client_secret  = ""
+auth0_api_identifier = "https://api.ag-opesys.example.com"
+
+# Supabase
+supabase_access_token      = ""
+supabase_organization_id   = ""
+supabase_database_password = ""
