@@ -9,6 +9,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@pothos/core": "^4.12.0",
     "@pothos/plugin-zod": "^4.3.0",
     "drizzle-orm": "^0.45.2",
@@ -16,7 +17,6 @@
     "graphql": "^16.9.0",
     "graphql-yoga": "^5.10.0",
     "hono": "^4.6.0",
-    "postgres": "^3.4.8",
     "zod": "^4.3.6"
   },
   "devDependencies": {

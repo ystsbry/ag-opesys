@@ -67,9 +67,7 @@ jobs:
           TF_VAR_auth0_client_id: ${{ secrets.AUTH0_CLIENT_ID }}
           TF_VAR_auth0_client_secret: ${{ secrets.AUTH0_CLIENT_SECRET }}
           TF_VAR_auth0_api_identifier: ${{ secrets.AUTH0_API_IDENTIFIER }}
-          TF_VAR_supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          TF_VAR_supabase_organization_id: ${{ secrets.SUPABASE_ORGANIZATION_ID }}
-          TF_VAR_supabase_database_password: ${{ secrets.SUPABASE_DATABASE_PASSWORD }}
+          TF_VAR_neon_api_key: ${{ secrets.NEON_API_KEY }}
 
       - name: Terraform Apply
         if: inputs.action == 'apply'

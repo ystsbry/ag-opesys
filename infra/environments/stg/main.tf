@@ -10,9 +10,9 @@ terraform {
       source  = "auth0/auth0"
       version = "~> 1.0"
     }
-    supabase = {
-      source  = "supabase/supabase"
-      version = "~> 1.0"
+    neon = {
+      source  = "kislerdm/neon"
+      version = "~> 0.6"
     }
   }
 
@@ -39,8 +39,8 @@ provider "auth0" {
   client_secret = var.auth0_client_secret
 }
 
-provider "supabase" {
-  access_token = var.supabase_access_token
+provider "neon" {
+  api_key = var.neon_api_key
 }
 
 module "cloudflare" {
@@ -61,11 +61,9 @@ module "auth0" {
   web_origins    = ["https://stg.ag-opesys.example.com"]
 }
 
-module "supabase" {
-  source = "../../modules/supabase"
+module "neon" {
+  source = "../../modules/neon"
 
-  project_name      = var.project_name
-  environment       = "stg"
-  organization_id   = var.supabase_organization_id
-  database_password = var.supabase_database_password
+  project_name = var.project_name
+  environment  = "stg"
 }

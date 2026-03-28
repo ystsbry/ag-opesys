@@ -46,20 +46,9 @@ variable "auth0_api_identifier" {
   default     = "https://api.ag-opesys.example.com"
 }
 
-# Supabase
-variable "supabase_access_token" {
-  description = "Supabase management API access token"
-  type        = string
-  sensitive   = true
-}
-
-variable "supabase_organization_id" {
-  description = "Supabase organization ID"
-  type        = string
-}
-
-variable "supabase_database_password" {
-  description = "Supabase database password"
+# Neon
+variable "neon_api_key" {
+  description = "Neon API key"
   type        = string
   sensitive   = true
 }

@@ -9,7 +9,5 @@ auth0_client_id      = ""
 auth0_client_secret  = ""
 auth0_api_identifier = "https://api.ag-opesys.example.com"
 
-# Supabase
-supabase_access_token      = ""
-supabase_organization_id   = ""
-supabase_database_password = ""
+# Neon
+neon_api_key = ""

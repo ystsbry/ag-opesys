@@ -8,19 +8,20 @@ variable "environment" {
   type        = string
 }
 
-variable "organization_id" {
-  description = "Supabase organization ID"
+variable "region_id" {
+  description = "Neon region ID"
   type        = string
+  default     = "aws-ap-northeast-1"
 }
 
-variable "region" {
-  description = "Supabase project region"
+variable "database_name" {
+  description = "Database name"
   type        = string
-  default     = "ap-northeast-1"
+  default     = "ag_opesys"
 }
 
-variable "database_password" {
-  description = "Password for the Supabase PostgreSQL database"
+variable "database_role" {
+  description = "Database role name"
   type        = string
-  sensitive   = true
+  default     = "app"
 }

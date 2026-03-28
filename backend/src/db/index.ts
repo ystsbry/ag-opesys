@@ -1,9 +1,13 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { neon, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema";
 
-export function createDb(databaseUrl: string) {
-  const client = postgres(databaseUrl);
+export function createDb(databaseUrl: string, neonProxyUrl?: string) {
+  if (neonProxyUrl) {
+    neonConfig.fetchEndpoint = neonProxyUrl;
+  }
+
+  const client = neon(databaseUrl);
   return drizzle(client, { schema });
 }
 

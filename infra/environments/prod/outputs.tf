@@ -8,7 +8,7 @@ output "auth0_spa_client_id" {
   value       = module.auth0.spa_client_id
 }
 
-output "supabase_database_host" {
-  description = "Supabase database host"
-  value       = module.supabase.database_host
+output "neon_database_host" {
+  description = "Neon database host"
+  value       = module.neon.database_host
 }
