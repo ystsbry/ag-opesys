@@ -1,0 +1,9 @@
+local.ag-opesys.dev {
+	reverse_proxy frontend:3000
+	tls internal
+}
+
+api.local.ag-opesys.dev {
+	reverse_proxy worker:8787
+	tls internal
+}
