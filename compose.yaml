@@ -14,6 +14,9 @@ services:
       - backend_node_modules:/app/backend/node_modules
       - do_storage:/app/backend/.wrangler
     command: npx wrangler dev --ip 0.0.0.0 --port 8787 --local
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   frontend:
     build:
@@ -30,7 +33,24 @@ services:
       - frontend_node_modules:/app/frontend/node_modules
     command: npx vite --host 0.0.0.0 --port 3000
 
+  postgres:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-ag_opesys}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 volumes:
   do_storage:
   backend_node_modules:
   frontend_node_modules:
+  postgres_data:
