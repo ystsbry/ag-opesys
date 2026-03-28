@@ -2,6 +2,7 @@
   "name": "my-frontend",
   "scripts": {
     "dev": "vite",
+    "install:in-docker": "docker compose exec frontend npm install",
     "build": "vite build"
   },
   "dependencies": {

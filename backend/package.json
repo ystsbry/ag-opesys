@@ -2,6 +2,7 @@
   "name": "my-worker",
   "scripts": {
     "dev": "wrangler dev",
+    "install:in-docker": "docker compose exec worker npm install",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
