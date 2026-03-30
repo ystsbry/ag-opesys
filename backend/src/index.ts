@@ -4,7 +4,7 @@ import { createYoga } from "graphql-yoga";
 import { schema } from "./schema";
 
 export class MyDurableObject extends DurableObject {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(_request: Request): Promise<Response> {
     return new Response("Hello from Durable Object");
   }
 }
@@ -18,7 +18,7 @@ const app = new Hono<{ Bindings: Bindings }>();
 const yoga = createYoga({ schema });
 
 app.on(["GET", "POST"], "/graphql", async (c) => {
-  return yoga.handle(c.req.raw, c.env);
+  return yoga.handle({ request: c.req.raw, ...c.env });
 });
 
 app.get("/health", (c) => {
