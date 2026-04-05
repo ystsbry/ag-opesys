@@ -7,12 +7,11 @@ terraform {
   }
 }
 
-resource "cloudflare_workers_script" "api" {
-  account_id  = var.account_id
-  script_name = "${var.project_name}-api"
-  main_module = "index.js"
+# Worker script is deployed via Wrangler (see deploy.yml).
+# This module manages surrounding infrastructure (Route, Custom Domain, etc.).
 
-  content = file("${path.module}/../../../backend/dist/index.js")
+locals {
+  worker_script_name = "${var.project_name}-api"
 }
 
 # -----------------------------------------------------------------------------
@@ -21,7 +20,7 @@ resource "cloudflare_workers_script" "api" {
 # resource "cloudflare_workers_route" "api" {
 #   zone_id = var.zone_id
 #   pattern = "api.example.com/*"
-#   script  = cloudflare_workers_script.api.script_name
+#   script  = local.worker_script_name
 # }
 
 # -----------------------------------------------------------------------------
@@ -29,6 +28,6 @@ resource "cloudflare_workers_script" "api" {
 # -----------------------------------------------------------------------------
 # resource "cloudflare_workers_custom_domain" "api" {
 #   account_id = var.account_id
-#   service    = cloudflare_workers_script.api.script_name
+#   service    = local.worker_script_name
 #   hostname   = "api.example.com"
 # }
