@@ -16,6 +16,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +28,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           trigger_phrase: "@claude sec-review"
-          direct_prompt: |
+          prompt: |
             あなたはセキュリティレビュアーです。以下の観点で脆弱性チェックを行ってください：
             - OWASP Top 10（インジェクション、XSS、CSRF等）
             - 認証・認可の不備
