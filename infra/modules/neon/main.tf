@@ -13,12 +13,6 @@ resource "neon_project" "main" {
   history_retention_seconds = var.history_retention_seconds
 }
 
-resource "neon_endpoint" "main" {
-  project_id = neon_project.main.id
-  branch_id  = neon_project.main.default_branch_id
-  type       = "read_write"
-}
-
 resource "neon_database" "main" {
   project_id = neon_project.main.id
   branch_id  = neon_project.main.default_branch_id
