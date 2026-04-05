@@ -5,11 +5,11 @@ output "project_id" {
 
 output "connection_uri" {
   description = "Neon database connection URI"
-  value       = neon_endpoint.main.host
+  value       = neon_project.main.connection_uri
   sensitive   = true
 }
 
 output "database_host" {
   description = "Neon database host"
-  value       = neon_endpoint.main.host
+  value       = neon_project.main.database_host
 }

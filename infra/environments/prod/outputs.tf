@@ -1,6 +1,6 @@
-output "cloudflare_worker_script_id" {
-  description = "Cloudflare Worker script ID"
-  value       = module.cloudflare.worker_script_id
+output "cloudflare_worker_script_name" {
+  description = "Cloudflare Worker script name"
+  value       = module.cloudflare.worker_script_name
 }
 
 output "auth0_spa_client_id" {

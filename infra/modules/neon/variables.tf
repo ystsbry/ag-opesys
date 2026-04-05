@@ -11,7 +11,13 @@ variable "environment" {
 variable "region_id" {
   description = "Neon region ID"
   type        = string
-  default     = "aws-ap-northeast-1"
+  default     = "aws-ap-southeast-1"
+}
+
+variable "history_retention_seconds" {
+  description = "History retention period in seconds (Free tier max: 21600)"
+  type        = number
+  default     = 21600
 }
 
 variable "database_name" {
