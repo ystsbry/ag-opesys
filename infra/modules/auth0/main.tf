@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    auth0 = {
+      source  = "auth0/auth0"
+      version = "~> 1.0"
+    }
+  }
+}
+
 resource "auth0_client" "spa" {
   name            = "${var.project_name}-spa"
   app_type        = "spa"

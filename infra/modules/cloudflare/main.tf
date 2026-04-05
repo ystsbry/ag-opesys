@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.0"
+    }
+  }
+}
+
 resource "cloudflare_workers_script" "api" {
   account_id  = var.account_id
   script_name = "${var.project_name}-api"

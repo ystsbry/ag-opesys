@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    neon = {
+      source  = "kislerdm/neon"
+      version = "~> 0.6"
+    }
+  }
+}
+
 resource "neon_project" "main" {
   name      = "${var.project_name}-${var.environment}"
   region_id = var.region_id
