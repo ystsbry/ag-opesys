@@ -14,6 +14,12 @@ variable "region_id" {
   default     = "aws-ap-southeast-1"
 }
 
+variable "history_retention_seconds" {
+  description = "History retention period in seconds (Free tier max: 21600)"
+  type        = number
+  default     = 21600
+}
+
 variable "database_name" {
   description = "Database name"
   type        = string

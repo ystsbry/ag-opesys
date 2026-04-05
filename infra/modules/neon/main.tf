@@ -8,8 +8,9 @@ terraform {
 }
 
 resource "neon_project" "main" {
-  name      = "${var.project_name}-${var.environment}"
-  region_id = var.region_id
+  name                      = "${var.project_name}-${var.environment}"
+  region_id                 = var.region_id
+  history_retention_seconds = var.history_retention_seconds
 }
 
 resource "neon_branch" "main" {
