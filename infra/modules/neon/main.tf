@@ -13,26 +13,21 @@ resource "neon_project" "main" {
   history_retention_seconds = var.history_retention_seconds
 }
 
-resource "neon_branch" "main" {
-  project_id = neon_project.main.id
-  name       = "main"
-}
-
 resource "neon_endpoint" "main" {
   project_id = neon_project.main.id
-  branch_id  = neon_branch.main.id
+  branch_id  = neon_project.main.default_branch_id
   type       = "read_write"
 }
 
 resource "neon_database" "main" {
   project_id = neon_project.main.id
-  branch_id  = neon_branch.main.id
+  branch_id  = neon_project.main.default_branch_id
   name       = var.database_name
   owner_name = neon_role.app.name
 }
 
 resource "neon_role" "app" {
   project_id = neon_project.main.id
-  branch_id  = neon_branch.main.id
+  branch_id  = neon_project.main.default_branch_id
   name       = var.database_role
 }
