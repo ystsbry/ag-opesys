@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  frontend:
-    name: "Frontend: ${{ matrix.command }}"
+  staff-ui:
+    name: "Staff UI: ${{ matrix.command }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -14,31 +14,68 @@ jobs:
         command: [format:check, lint, typecheck, test]
     defaults:
       run:
-        working-directory: frontend
+        working-directory: staff-ui
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: staff-ui/package-lock.json
       - run: npm ci
       - run: npm run ${{ matrix.command }}
 
-  frontend-build:
-    name: "Frontend: build"
-    needs: frontend
+  staff-ui-build:
+    name: "Staff UI: build"
+    needs: staff-ui
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
+        working-directory: staff-ui
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: staff-ui/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  owner-ui:
+    name: "Owner UI: ${{ matrix.command }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        command: [format:check, lint, typecheck, test]
+    defaults:
+      run:
+        working-directory: owner-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: owner-ui/package-lock.json
+      - run: npm ci
+      - run: npm run ${{ matrix.command }}
+
+  owner-ui-build:
+    name: "Owner UI: build"
+    needs: owner-ui
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: owner-ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: owner-ui/package-lock.json
       - run: npm ci
       - run: npm run build
 

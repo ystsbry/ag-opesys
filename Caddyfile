@@ -1,5 +1,10 @@
-local.ag-opesys.dev {
-	reverse_proxy frontend:3000
+staff.local.ag-opesys.dev {
+	reverse_proxy staff-ui:3000
+	tls internal
+}
+
+owner.local.ag-opesys.dev {
+	reverse_proxy owner-ui:3000
 	tls internal
 }
 

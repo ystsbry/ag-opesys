@@ -7,7 +7,7 @@ describe("App", () => {
   it("renders heading", () => {
     const container = document.createElement("div");
     const dispose = render(() => <App />, container);
-    expect(container.textContent).toContain("Hello from SolidJS");
+    expect(container.textContent).toContain("Hello from Staff UI");
     dispose();
   });
 });

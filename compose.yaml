@@ -9,7 +9,8 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
-      - frontend
+      - staff-ui
+      - owner-ui
       - worker
 
   worker:
@@ -31,17 +32,30 @@ services:
       neon-proxy:
         condition: service_started
 
-  frontend:
+  staff-ui:
     build:
       context: .
-      dockerfile: frontend/Dockerfile
+      dockerfile: staff-ui/Dockerfile
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     user: "${UID:-1000}:${GID:-1000}"
     volumes:
-      - ./frontend:/app/frontend
-      - frontend_node_modules:/app/frontend/node_modules
+      - ./staff-ui:/app/staff-ui
+      - staff_ui_node_modules:/app/staff-ui/node_modules
+    command: npx vite --host 0.0.0.0 --port 3000
+
+  owner-ui:
+    build:
+      context: .
+      dockerfile: owner-ui/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./owner-ui:/app/owner-ui
+      - owner_ui_node_modules:/app/owner-ui/node_modules
     command: npx vite --host 0.0.0.0 --port 3000
 
   postgres:
@@ -75,5 +89,6 @@ volumes:
   caddy_config:
   do_storage:
   backend_node_modules:
-  frontend_node_modules:
+  staff_ui_node_modules:
+  owner_ui_node_modules:
   postgres_data:

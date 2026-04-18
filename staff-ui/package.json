@@ -1,10 +1,10 @@
 {
-  "name": "my-frontend",
+  "name": "staff-ui",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "install:in-docker": "docker compose exec frontend npm install",
+    "install:in-docker": "docker compose exec staff-ui npm install",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
