@@ -1,6 +1,6 @@
 import { createSchema } from "graphql-yoga";
 
-export const schema = createSchema({
+export const staffSchema = createSchema({
   typeDefs: /* GraphQL */ `
     type Query {
       hello: String!
@@ -8,7 +8,20 @@ export const schema = createSchema({
   `,
   resolvers: {
     Query: {
-      hello: () => "Hello from Hono + Yoga on Cloudflare Workers",
+      hello: () => "Hello from Staff GraphQL on Hono + Yoga on Cloudflare Workers",
+    },
+  },
+});
+
+export const ownerSchema = createSchema({
+  typeDefs: /* GraphQL */ `
+    type Query {
+      hello: String!
+    }
+  `,
+  resolvers: {
+    Query: {
+      hello: () => "Hello from Owner GraphQL on Hono + Yoga on Cloudflare Workers",
     },
   },
 });
