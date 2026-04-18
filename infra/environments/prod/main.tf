@@ -2,9 +2,9 @@ terraform {
   required_version = ">= 1.5.0"
 
   required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 5.0"
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 6.0"
     }
     auth0 = {
       source  = "auth0/auth0"
@@ -29,8 +29,9 @@ terraform {
   }
 }
 
-provider "cloudflare" {
-  api_token = var.cloudflare_api_token
+provider "google" {
+  project = var.gcp_project_id
+  region  = var.gcp_region
 }
 
 provider "auth0" {
@@ -43,12 +44,13 @@ provider "neon" {
   api_key = var.neon_api_key
 }
 
-module "cloudflare" {
-  source = "../../modules/cloudflare"
+module "gcp" {
+  source = "../../modules/gcp"
 
-  account_id   = var.cloudflare_account_id
-  zone_id      = var.cloudflare_zone_id
-  project_name = "${var.project_name}-prod"
+  gcp_project_id    = var.gcp_project_id
+  gcp_region        = var.gcp_region
+  project_name      = "${var.project_name}-prod"
+  github_repository = var.github_repository
 }
 
 module "auth0" {

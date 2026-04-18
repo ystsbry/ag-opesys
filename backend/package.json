@@ -1,8 +1,9 @@
 {
-  "name": "my-worker",
+  "name": "backend",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
     "install:in-docker": "docker compose exec worker npm install",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -13,10 +14,10 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "build": "wrangler build"
+    "build": "tsc"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.2",
+    "@hono/node-server": "^1.13.0",
     "@pothos/core": "^4.12.0",
     "@pothos/plugin-zod": "^4.3.0",
     "drizzle-orm": "^0.45.2",
@@ -24,17 +25,19 @@
     "graphql": "^16.9.0",
     "graphql-yoga": "^5.10.0",
     "hono": "^4.6.0",
+    "pg": "^8.13.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.0.0",
     "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.0",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9.0.0",
     "prettier": "^3.0.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
-    "vitest": "^3.0.0",
-    "wrangler": "^4.0.0"
+    "vitest": "^3.0.0"
   }
 }

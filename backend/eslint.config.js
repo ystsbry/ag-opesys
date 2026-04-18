@@ -10,6 +10,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["dist/", ".wrangler/"],
+    ignores: ["dist/"],
   },
 );

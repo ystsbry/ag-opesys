@@ -1,7 +1,9 @@
-# Cloudflare
-cloudflare_api_token  = ""
-cloudflare_account_id = ""
-cloudflare_zone_id    = ""
+# GCP
+gcp_project_id = ""
+gcp_region     = "asia-northeast1"
+
+# GitHub Actions (WIF)
+github_repository = "ystsbry/ag-opesys"
 
 # Auth0
 auth0_domain         = "example.us.auth0.com"

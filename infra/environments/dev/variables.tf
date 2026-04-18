@@ -4,22 +4,21 @@ variable "project_name" {
   default     = "ag-opesys"
 }
 
-# Cloudflare
-variable "cloudflare_api_token" {
-  description = "Cloudflare API token"
-  type        = string
-  sensitive   = true
-}
-
-variable "cloudflare_account_id" {
-  description = "Cloudflare account ID"
+# GCP
+variable "gcp_project_id" {
+  description = "GCP project ID"
   type        = string
 }
 
-variable "cloudflare_zone_id" {
-  description = "Cloudflare zone ID"
+variable "gcp_region" {
+  description = "GCP region (e.g. asia-northeast1)"
   type        = string
-  default     = ""
+  default     = "asia-northeast1"
+}
+
+variable "github_repository" {
+  description = "GitHub repository allowed to impersonate the deployer service account (format: owner/repo)"
+  type        = string
 }
 
 # Auth0

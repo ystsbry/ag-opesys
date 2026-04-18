@@ -17,6 +17,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
+      target: dev
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
@@ -24,13 +25,16 @@ services:
     volumes:
       - ./backend:/app/backend
       - backend_node_modules:/app/backend/node_modules
-      - do_storage:/app/backend/.wrangler
-    command: npx wrangler dev --ip 0.0.0.0 --port 8787 --local
+    environment:
+      PORT: 8787
+      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-ag_opesys}
+      AUTH0_DOMAIN: ${AUTH0_DOMAIN:-}
+      AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID:-}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE:-}
+    command: npm run dev
     depends_on:
       postgres:
         condition: service_healthy
-      neon-proxy:
-        condition: service_started
 
   staff-ui:
     build:
@@ -74,20 +78,9 @@ services:
       timeout: 5s
       retries: 5
 
-  neon-proxy:
-    image: ghcr.io/timowilhelm/local-neon-http-proxy:main
-    ports:
-      - "4444:4444"
-    environment:
-      - PG_CONNECTION_STRING=postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-ag_opesys}
-    depends_on:
-      postgres:
-        condition: service_healthy
-
 volumes:
   caddy_data:
   caddy_config:
-  do_storage:
   backend_node_modules:
   staff_ui_node_modules:
   owner_ui_node_modules:
