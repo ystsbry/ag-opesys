@@ -1,8 +1,7 @@
 import { builder } from "./builder";
 
-import "./queries/hello/query";
-import "./commands/register-staff/mutation";
-import "./commands/register-store/mutation";
+import "./queries";
+import "./commands";
 
 builder.queryType({});
 builder.mutationType({});
