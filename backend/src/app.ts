@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { createYoga } from "graphql-yoga";
-import { staffSchema, ownerSchema } from "./schema";
+import { staffSchema } from "./feature/staff/schema";
+import { ownerSchema } from "./feature/owner/schema";
 
 const app = new Hono();
 
